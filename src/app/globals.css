@@ -1,0 +1,959 @@
+:root {
+  --bg: #080b10;
+  --bg-alt: #0d1117;
+  --card: #131b24;
+  --border: #1e2d3d;
+  --accent: #00e5ff;
+  --accent-strong: #7b61ff;
+  --text: #e8f0fe;
+  --muted: #6e8599;
+  --success: #25d366;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-syne), sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+main,
+section,
+footer,
+nav {
+  position: relative;
+  z-index: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.cursor,
+.cursorRing {
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+}
+
+.cursor {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--accent);
+  mix-blend-mode: difference;
+}
+
+.cursorRing {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  opacity: 0.5;
+}
+
+.siteNav {
+  align-items: center;
+  backdrop-filter: blur(20px);
+  background: rgba(8, 11, 16, 0.84);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 20px 60px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.navLogo,
+.navLinks a,
+.navCta,
+.heroTag,
+.heroDescription,
+.heroScroll,
+.sectionLabel,
+.serviceNumber,
+.serviceDescription,
+.skillsLead,
+.skillName,
+.skillPercent,
+.toolName,
+.toolTag,
+.projectTag,
+.projectDescription,
+.projectLink,
+.statLabel,
+.contactLead,
+.contactLabel,
+.formLabel,
+.footerCopy,
+.footerLinks a {
+  font-family: var(--font-space-mono), monospace;
+}
+
+.navLogo {
+  color: var(--accent);
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+}
+
+.navLogo span,
+.footerCopy span {
+  color: var(--text);
+}
+
+.navLinks {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.navLinks a,
+.footerLinks a {
+  color: var(--muted);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  position: relative;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.navLinks a::after,
+.footerLinks a::after {
+  background: var(--accent);
+  bottom: -4px;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transition: width 0.3s ease;
+  width: 0;
+}
+
+.navLinks a:hover,
+.footerLinks a:hover {
+  color: var(--accent);
+}
+
+.navLinks a:hover::after,
+.footerLinks a:hover::after {
+  width: 100%;
+}
+
+.navCta,
+.buttonPrimary,
+.buttonSecondary,
+.formButton {
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.navCta {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 10px 20px;
+}
+
+.navCta:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.hero,
+.servicesSection,
+.skillsSection,
+.projectsSection,
+.contactSection {
+  padding: 100px 60px;
+}
+
+.hero {
+  align-items: center;
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+  padding-bottom: 80px;
+  padding-top: 140px;
+}
+
+.heroGlow,
+.heroGlowSecondary {
+  pointer-events: none;
+  position: absolute;
+}
+
+.heroGlow {
+  animation: pulse 5s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.08) 0%, transparent 70%);
+  height: 600px;
+  left: 40%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+}
+
+.heroGlowSecondary {
+  animation: pulse 7s ease-in-out infinite reverse;
+  background: radial-gradient(circle, rgba(123, 97, 255, 0.08) 0%, transparent 70%);
+  height: 400px;
+  right: 8%;
+  top: 18%;
+  width: 400px;
+}
+
+.heroContent {
+  max-width: 740px;
+}
+
+.heroTag,
+.heroTitle,
+.heroDescription,
+.heroButtons,
+.heroScroll {
+  animation: fadeUp 0.8s forwards;
+  opacity: 0;
+}
+
+.heroTag {
+  animation-delay: 0.2s;
+  color: var(--accent);
+  font-size: 0.76rem;
+  letter-spacing: 0.32em;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  animation-delay: 0.4s;
+  font-size: clamp(3.4rem, 8vw, 6.2rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.94;
+  margin-bottom: 32px;
+}
+
+.heroTitle span {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+}
+
+.heroDescription {
+  animation-delay: 0.6s;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.9;
+  margin-bottom: 48px;
+  max-width: 580px;
+}
+
+.heroButtons {
+  animation-delay: 0.8s;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.buttonPrimary,
+.buttonSecondary {
+  display: inline-flex;
+  padding: 14px 32px;
+}
+
+.buttonPrimary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.buttonPrimary:hover {
+  background: var(--accent-strong);
+  color: #fff;
+}
+
+.buttonSecondary {
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.buttonSecondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.heroScroll {
+  align-items: center;
+  animation-delay: 1.2s;
+  bottom: 40px;
+  color: var(--muted);
+  display: flex;
+  font-size: 0.7rem;
+  gap: 12px;
+  left: 60px;
+  letter-spacing: 0.18em;
+  position: absolute;
+  text-transform: uppercase;
+}
+
+.scrollLine {
+  background: var(--border);
+  height: 1px;
+  overflow: hidden;
+  position: relative;
+  width: 40px;
+}
+
+.scrollLine::after {
+  animation: sweep 2s linear infinite;
+  background: var(--accent);
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.servicesSection,
+.projectsSection,
+.contactSection {
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+}
+
+.sectionLabel {
+  color: var(--accent);
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.98;
+  margin-bottom: 60px;
+}
+
+.servicesGrid,
+.statsGrid {
+  background: var(--border);
+  display: grid;
+  gap: 1px;
+}
+
+.servicesGrid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.serviceCard {
+  background: var(--card);
+  overflow: hidden;
+  padding: 48px 36px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.serviceCard::before {
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  width: 100%;
+}
+
+.serviceCard:hover {
+  background: #16202a;
+}
+
+.serviceCard:hover::before {
+  transform: scaleX(1);
+}
+
+.serviceNumber,
+.projectTag,
+.contactLabel,
+.formLabel,
+.footerCopy,
+.footerLinks a,
+.statLabel,
+.projectLink,
+.toolTag {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.serviceNumber {
+  color: var(--muted);
+  font-size: 0.7rem;
+  margin-bottom: 24px;
+}
+
+.serviceIcon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.serviceName,
+.projectName,
+.formTitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.serviceDescription,
+.skillsLead,
+.projectDescription,
+.contactLead {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.85;
+}
+
+.skillsLayout,
+.contactLayout {
+  align-items: start;
+  display: grid;
+  gap: 80px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.skillsLead,
+.contactLead {
+  margin-bottom: 40px;
+  max-width: 580px;
+}
+
+.skillsList,
+.contactMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skillHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.skillName {
+  font-size: 0.8rem;
+}
+
+.skillPercent {
+  color: var(--accent);
+  font-size: 0.72rem;
+}
+
+.skillBar {
+  background: var(--border);
+  height: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skillFill {
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
+}
+
+.toolsGrid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.toolCard,
+.projectCard,
+.contactForm,
+.contactCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.toolCard {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  padding: 28px 24px;
+  position: relative;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.toolCard:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.toolBackground {
+  background: radial-gradient(circle at 50% 100%, rgba(0, 229, 255, 0.08), transparent 70%);
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.3s ease;
+}
+
+.toolCard:hover .toolBackground {
+  opacity: 1;
+}
+
+.toolIcon,
+.toolName,
+.toolTag {
+  position: relative;
+  z-index: 1;
+}
+
+.toolIcon {
+  font-size: 2.2rem;
+}
+
+.toolName {
+  font-size: 0.76rem;
+}
+
+.toolTag {
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
+.projectsGrid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.projectCard {
+  overflow: hidden;
+  transition:
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
+}
+
+.projectCard:hover {
+  border-color: var(--accent);
+  box-shadow: 0 20px 60px rgba(0, 229, 255, 0.08);
+  transform: translateY(-6px);
+}
+
+.projectImage {
+  align-items: center;
+  display: flex;
+  font-size: 3.5rem;
+  height: 180px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.projectImageOne {
+  background: linear-gradient(135deg, #0d1b2a, #1b2838);
+}
+
+.projectImageTwo {
+  background: linear-gradient(135deg, #1a0d2e, #2d1b4e);
+}
+
+.projectImageThree {
+  background: linear-gradient(135deg, #0d1f0d, #1b3a1b);
+}
+
+.projectOverlay {
+  background: linear-gradient(to bottom, transparent, rgba(8, 11, 16, 0.72));
+  inset: 0;
+  position: absolute;
+}
+
+.projectBody {
+  padding: 28px;
+}
+
+.projectTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.projectTag {
+  border: 1px solid rgba(0, 229, 255, 0.24);
+  color: var(--accent);
+  font-size: 0.64rem;
+  padding: 4px 10px;
+}
+
+.projectDescription {
+  margin-bottom: 24px;
+}
+
+.projectLink {
+  color: var(--accent);
+  display: inline-flex;
+  gap: 8px;
+  transition: gap 0.3s ease;
+}
+
+.projectLink:hover {
+  gap: 14px;
+}
+
+.statsGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.statCard {
+  background: var(--bg);
+  padding: 60px 36px;
+  text-align: center;
+}
+
+.statNumber {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.statLabel {
+  color: var(--muted);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.68rem;
+}
+
+.contactLead {
+  margin-bottom: 48px;
+}
+
+.contactMethods {
+  gap: 16px;
+}
+
+.contactCard {
+  --contact-accent: var(--accent);
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  padding: 22px 24px;
+  position: relative;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.contactCard::before {
+  background: var(--contact-accent);
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+  width: 3px;
+}
+
+.contactCard:hover {
+  border-color: var(--contact-accent);
+  transform: translateX(6px);
+}
+
+.contactCard:hover::before {
+  transform: scaleY(1);
+}
+
+.whatsapp {
+  --contact-accent: #25d366;
+}
+
+.telegram {
+  --contact-accent: #2ca5e0;
+}
+
+.email {
+  --contact-accent: var(--accent);
+}
+
+.contactIcon {
+  flex-shrink: 0;
+  font-size: 1.8rem;
+}
+
+.contactLabel {
+  color: var(--muted);
+  font-size: 0.68rem;
+  margin-bottom: 4px;
+}
+
+.contactValue {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.contactForm {
+  padding: 48px;
+}
+
+.formTitle {
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formLabel {
+  color: var(--muted);
+  display: block;
+  font-size: 0.68rem;
+  margin-bottom: 8px;
+}
+
+.formInput,
+.formTextarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  outline: none;
+  padding: 14px 16px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.formInput::placeholder,
+.formTextarea::placeholder {
+  color: #51677b;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  border-color: var(--accent);
+}
+
+.formTextarea {
+  height: 110px;
+  resize: none;
+}
+
+.formButton {
+  background: var(--accent);
+  border: 0;
+  color: var(--bg);
+  cursor: pointer;
+  margin-top: 8px;
+  padding: 16px;
+  width: 100%;
+}
+
+.formButton:hover {
+  background: var(--accent-strong);
+  color: #fff;
+}
+
+.formButton.sent {
+  background: var(--success);
+  color: #fff;
+}
+
+.siteFooter {
+  align-items: center;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  padding: 36px 60px;
+}
+
+.footerCopy {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.footerLinks {
+  display: flex;
+  gap: 24px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sweep {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 900px) {
+  body {
+    cursor: auto;
+  }
+
+  .cursor,
+  .cursorRing {
+    display: none;
+  }
+
+  .siteNav {
+    padding: 16px 24px;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .hero,
+  .servicesSection,
+  .skillsSection,
+  .projectsSection,
+  .contactSection {
+    padding: 80px 24px 60px;
+  }
+
+  .skillsLayout,
+  .contactLayout {
+    gap: 40px;
+    grid-template-columns: 1fr;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .heroScroll {
+    bottom: 24px;
+    left: 24px;
+  }
+
+  .siteFooter {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .navCta {
+    display: none;
+  }
+
+  .toolsGrid,
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .projectImage {
+    height: 160px;
+  }
+
+  .contactForm {
+    padding: 32px 24px;
+  }
+}
