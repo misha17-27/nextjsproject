@@ -156,6 +156,10 @@ textarea {
   transition: color 0.3s ease;
 }
 
+.activeNavLink {
+  color: var(--accent) !important;
+}
+
 .navLinks a::after,
 .footerLinks a::after {
   background: var(--accent);
@@ -206,6 +210,8 @@ textarea {
 }
 
 .hero,
+.pageHero,
+.pageSection,
 .servicesSection,
 .skillsSection,
 .projectsSection,
@@ -220,6 +226,71 @@ textarea {
   overflow: hidden;
   padding-bottom: 80px;
   padding-top: 140px;
+}
+
+.pageHero {
+  padding-bottom: 56px;
+  padding-top: 150px;
+}
+
+.pageTitle {
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+  margin-bottom: 28px;
+  max-width: 980px;
+}
+
+.pageLead {
+  color: var(--muted);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.86rem;
+  line-height: 1.9;
+  max-width: 720px;
+}
+
+.pageIntroBand {
+  align-items: end;
+  background:
+    linear-gradient(135deg, rgba(0, 229, 255, 0.07), transparent 35%),
+    linear-gradient(180deg, rgba(123, 97, 255, 0.08), rgba(19, 27, 36, 0.96));
+  border: 1px solid var(--border);
+  display: grid;
+  gap: 28px;
+  grid-template-columns: 1.2fr 0.8fr;
+  margin-bottom: 32px;
+  padding: 32px;
+}
+
+.introBandCopy .sectionTitle {
+  margin-bottom: 0;
+}
+
+.bulletStack {
+  display: grid;
+  gap: 12px;
+}
+
+.bulletStack p {
+  color: var(--muted);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.78rem;
+  line-height: 1.8;
+  padding-left: 18px;
+  position: relative;
+}
+
+.bulletStack p::before {
+  color: var(--accent);
+  content: "+";
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.bulletStack.compact {
+  margin-top: 16px;
 }
 
 .heroGlow,
@@ -380,6 +451,168 @@ textarea {
   letter-spacing: -0.05em;
   line-height: 0.98;
   margin-bottom: 60px;
+}
+
+.featureGrid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.featureCard,
+.contentCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 28px;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.featureCard:hover,
+.contentCard:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.featureMeta {
+  color: var(--accent);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 18px;
+}
+
+.featureCard h3,
+.contentCard h3 {
+  font-size: 1.28rem;
+  margin-bottom: 12px;
+}
+
+.featureCard p,
+.contentCard p {
+  color: var(--muted);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.78rem;
+  line-height: 1.8;
+}
+
+.contentStrip {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 32px;
+}
+
+.pricingGrid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pricingCard {
+  background: linear-gradient(180deg, rgba(19, 27, 36, 0.96), rgba(10, 14, 19, 0.96));
+  border: 1px solid var(--border);
+  padding: 28px;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.pricingCard:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.pricingName {
+  color: var(--muted);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.pricingPrice {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  margin-bottom: 12px;
+}
+
+.pricingSummary {
+  color: var(--muted);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.78rem;
+  line-height: 1.8;
+}
+
+.signalGrid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.signalCard {
+  background: linear-gradient(180deg, rgba(12, 18, 24, 0.98), rgba(19, 27, 36, 0.98));
+  border: 1px solid var(--border);
+  padding: 24px;
+}
+
+.signalCard span {
+  color: var(--muted);
+  display: block;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.signalCard strong {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.topGap {
+  margin-top: 32px;
+}
+
+.inlineAction {
+  color: var(--accent);
+  display: inline-flex;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  margin-top: 18px;
+  text-transform: uppercase;
+}
+
+.storyCard p + p {
+  margin-top: 10px;
+}
+
+.storyCard strong {
+  color: var(--text);
+}
+
+.quotePanel {
+  background:
+    radial-gradient(circle at top right, rgba(123, 97, 255, 0.12), transparent 45%),
+    linear-gradient(180deg, rgba(13, 17, 23, 1), rgba(9, 12, 16, 1));
+  border: 1px solid var(--border);
+  margin-top: 32px;
+  padding: 32px;
+}
+
+.quotePanel .sectionTitle {
+  margin-bottom: 20px;
+  max-width: 820px;
+}
+
+.quotePanel .pageLead {
+  margin-bottom: 28px;
 }
 
 .servicesGrid,
@@ -569,7 +802,14 @@ textarea {
 }
 
 .toolIcon {
-  font-size: 2.2rem;
+  align-items: center;
+  border: 1px solid rgba(0, 229, 255, 0.18);
+  display: inline-flex;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.92rem;
+  justify-content: center;
+  min-height: 58px;
+  min-width: 58px;
 }
 
 .toolName {
@@ -604,7 +844,9 @@ textarea {
 .projectImage {
   align-items: center;
   display: flex;
-  font-size: 3.5rem;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
   height: 180px;
   justify-content: center;
   overflow: hidden;
@@ -745,8 +987,15 @@ textarea {
 }
 
 .contactIcon {
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: inline-flex;
   flex-shrink: 0;
-  font-size: 1.8rem;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.8rem;
+  height: 52px;
+  justify-content: center;
+  width: 52px;
 }
 
 .contactLabel {
@@ -909,6 +1158,8 @@ textarea {
   }
 
   .hero,
+  .pageHero,
+  .pageSection,
   .servicesSection,
   .skillsSection,
   .projectsSection,
@@ -917,7 +1168,12 @@ textarea {
   }
 
   .skillsLayout,
-  .contactLayout {
+  .contactLayout,
+  .featureGrid,
+  .contentStrip,
+  .pageIntroBand,
+  .pricingGrid,
+  .signalGrid {
     gap: 40px;
     grid-template-columns: 1fr;
   }
@@ -947,6 +1203,10 @@ textarea {
   .toolsGrid,
   .statsGrid {
     grid-template-columns: 1fr;
+  }
+
+  .pageTitle {
+    font-size: clamp(2.4rem, 12vw, 4rem);
   }
 
   .projectImage {

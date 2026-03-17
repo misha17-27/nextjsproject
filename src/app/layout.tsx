@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Space_Mono, Syne } from "next/font/google";
+import { SiteEffects } from "@/components/site-effects";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
 const syne = Syne({
@@ -28,7 +31,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${syne.variable} ${spaceMono.variable}`}>
+        <SiteEffects />
+        <SiteHeader />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );
