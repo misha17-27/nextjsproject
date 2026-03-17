@@ -1,35 +1,33 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
-import { contactFaqs, contactPromises, contacts } from "@/data/site";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "Contact | Web Developer",
   description: "Contact page for project inquiries and direct communication.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const content = await getSiteContent();
+  const { contacts } = content.collections;
+  const page = content.contactPage;
+
   return (
     <main>
       <section className="pageHero">
-        <p className="sectionLabel reveal">{"// Contact"}</p>
-        <h1 className="pageTitle reveal">Start the conversation</h1>
-        <p className="pageLead reveal">
-          This page is designed to be shareable on its own: concise, direct, and
-          clear about what happens after the first message.
-        </p>
+        <p className="sectionLabel reveal">{page.heroTag}</p>
+        <h1 className="pageTitle reveal">{page.heroTitle}</h1>
+        <p className="pageLead reveal">{page.heroLead}</p>
       </section>
 
       <section className="contactSection">
         <div className="contactLayout">
           <div className="contactText">
-            <p className="sectionLabel reveal">{"// Channels"}</p>
-            <h2 className="sectionTitle reveal">Reach me where it is easiest</h2>
-            <p className="contactLead reveal">
-              For quick communication, direct channels work best. For structured
-              requests, use the form and describe the project clearly.
-            </p>
+            <p className="sectionLabel reveal">{page.channelsTag}</p>
+            <h2 className="sectionTitle reveal">{page.channelsTitle}</h2>
+            <p className="contactLead reveal">{page.channelsLead}</p>
             <div className="bulletStack reveal">
-              {contactPromises.map((item) => (
+              {page.promises.map((item) => (
                 <p key={item}>{item}</p>
               ))}
             </div>
@@ -52,13 +50,13 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <ContactForm />
+          <ContactForm form={page.form} />
         </div>
       </section>
 
       <section className="pageSection">
         <div className="contentStrip reveal">
-          {contactFaqs.map((item) => (
+          {page.faqs.map((item) => (
             <article className="contentCard" key={item.question}>
               <h3>{item.question}</h3>
               <p>{item.answer}</p>

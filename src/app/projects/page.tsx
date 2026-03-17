@@ -1,27 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { projectSignals, projects, projectStories, stats } from "@/data/site";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "Projects | Web Developer",
   description: "Selected projects and delivery outcomes.",
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const content = await getSiteContent();
+  const { projects, stats } = content.collections;
+  const page = content.projectsPage;
+
   return (
     <main>
       <section className="pageHero">
-        <p className="sectionLabel reveal">{"// Projects"}</p>
-        <h1 className="pageTitle reveal">Selected work built for business results</h1>
-        <p className="pageLead reveal">
-          The portfolio page is designed to feel like a proper case-study index:
-          outcomes first, visual proof second, and enough context to make the work credible.
-        </p>
+        <p className="sectionLabel reveal">{page.heroTag}</p>
+        <h1 className="pageTitle reveal">{page.heroTitle}</h1>
+        <p className="pageLead reveal">{page.heroLead}</p>
       </section>
 
       <section className="pageSection">
         <div className="signalGrid reveal">
-          {projectSignals.map((item) => (
+          {page.signals.map((item) => (
             <article className="signalCard" key={item.label}>
               <span>{item.label}</span>
               <strong>{item.value}</strong>
@@ -49,7 +50,7 @@ export default function ProjectsPage() {
                 <h2 className="projectName">{project.title}</h2>
                 <p className="projectDescription">{project.description}</p>
                 <Link href="/contact" className="projectLink">
-                  Discuss a project
+                  {page.projectCta}
                 </Link>
               </div>
             </article>
@@ -59,7 +60,7 @@ export default function ProjectsPage() {
 
       <section className="pageSection">
         <div className="featureGrid reveal">
-          {projectStories.map((item, index) => (
+          {page.stories.map((item, index) => (
             <article className="featureCard storyCard" key={item.name}>
               <div className="featureMeta">{`0${index + 1}`}</div>
               <h3>{item.name}</h3>
@@ -71,14 +72,11 @@ export default function ProjectsPage() {
         </div>
 
         <div className="quotePanel reveal">
-          <p className="sectionLabel">{"// Intent"}</p>
-          <h2 className="sectionTitle">The goal is not to show volume. It is to show decision quality.</h2>
-          <p className="pageLead">
-            Every case is framed around what changed for the business: clearer messaging,
-            better structure, stronger presentation, or cleaner technical execution.
-          </p>
+          <p className="sectionLabel">{page.quoteTag}</p>
+          <h2 className="sectionTitle">{page.quoteTitle}</h2>
+          <p className="pageLead">{page.quoteLead}</p>
           <Link href="/contact" className="buttonPrimary">
-            Build the next case
+            {page.quoteCta}
           </Link>
         </div>
       </section>

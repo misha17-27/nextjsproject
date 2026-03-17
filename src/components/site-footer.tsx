@@ -1,11 +1,16 @@
 import Link from "next/link";
-import { navigation } from "@/data/site";
+import type { NavItem, SiteContent } from "@/lib/site-content";
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  navigation: NavItem[];
+  footer: SiteContent["footer"];
+};
+
+export function SiteFooter({ navigation, footer }: SiteFooterProps) {
   return (
     <footer className="siteFooter">
       <p className="footerCopy">
-        Copyright 2026 <span>&lt;dev/&gt;</span> All rights reserved
+        {footer.copy} <span>{footer.brand}</span> {footer.suffix}
       </p>
       <div className="footerLinks">
         {navigation.slice(1).map((item) => (

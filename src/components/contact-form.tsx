@@ -1,8 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { SiteContent } from "@/lib/site-content";
 
-export function ContactForm() {
+type ContactFormProps = {
+  form: SiteContent["contactPage"]["form"];
+};
+
+export function ContactForm({ form }: ContactFormProps) {
   const [isSent, setIsSent] = useState(false);
 
   useEffect(() => {
@@ -19,42 +24,42 @@ export function ContactForm() {
 
   return (
     <div className="contactForm reveal">
-      <h3 className="formTitle">Send a Message</h3>
+      <h3 className="formTitle">{form.title}</h3>
       <div className="formGroup">
         <label className="formLabel" htmlFor="name">
-          Your Name
+          {form.nameLabel}
         </label>
-        <input id="name" type="text" className="formInput" placeholder="John Doe" />
+        <input id="name" type="text" className="formInput" placeholder={form.namePlaceholder} />
       </div>
       <div className="formGroup">
         <label className="formLabel" htmlFor="email">
-          Email
+          {form.emailLabel}
         </label>
-        <input id="email" type="email" className="formInput" placeholder="john@example.com" />
+        <input id="email" type="email" className="formInput" placeholder={form.emailPlaceholder} />
       </div>
       <div className="formGroup">
         <label className="formLabel" htmlFor="projectType">
-          Project Type
+          {form.projectTypeLabel}
         </label>
         <input
           id="projectType"
           type="text"
           className="formInput"
-          placeholder="Website, landing page, server setup..."
+          placeholder={form.projectTypePlaceholder}
         />
       </div>
       <div className="formGroup">
         <label className="formLabel" htmlFor="message">
-          Message
+          {form.messageLabel}
         </label>
-        <textarea id="message" className="formTextarea" placeholder="Tell me about your project..." />
+        <textarea id="message" className="formTextarea" placeholder={form.messagePlaceholder} />
       </div>
       <button
         type="button"
         className={`formButton ${isSent ? "sent" : ""}`}
         onClick={() => setIsSent(true)}
       >
-        {isSent ? "Sent!" : "Send Message"}
+        {isSent ? form.sentLabel : form.submitLabel}
       </button>
     </div>
   );

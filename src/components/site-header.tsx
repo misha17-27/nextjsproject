@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navigation } from "@/data/site";
+import type { NavItem } from "@/lib/site-content";
 
-export function SiteHeader() {
+type SiteHeaderProps = {
+  navigation: NavItem[];
+};
+
+export function SiteHeader({ navigation }: SiteHeaderProps) {
   const pathname = usePathname();
 
   return (

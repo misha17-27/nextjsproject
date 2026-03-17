@@ -8,6 +8,8 @@
   --text: #e8f0fe;
   --muted: #6e8599;
   --success: #25d366;
+  --font-syne: "Syne", "Segoe UI", sans-serif;
+  --font-space-mono: "Space Mono", "Courier New", monospace;
 }
 
 *,
@@ -615,6 +617,828 @@ textarea {
   margin-bottom: 28px;
 }
 
+.adminPage {
+  min-height: 100vh;
+  padding: 100px 0 0;
+}
+
+.adminShell {
+  min-height: calc(100vh - 100px);
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+}
+
+.adminSidebar,
+.adminEditorPanel,
+.adminInfoPanel,
+.adminOverviewCard,
+.adminInfoCard {
+  background: linear-gradient(180deg, rgba(12, 18, 24, 0.98), rgba(19, 27, 36, 0.98));
+  border: 1px solid var(--border);
+}
+
+.adminSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-height: 100%;
+  padding: 28px 20px;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.adminEyebrow {
+  color: var(--accent);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.adminBrand {
+  align-items: center;
+  display: flex;
+  gap: 14px;
+}
+
+.adminBrandMark {
+  align-items: center;
+  background: linear-gradient(135deg, rgba(123, 97, 255, 0.24), rgba(0, 229, 255, 0.2));
+  border: 1px solid rgba(123, 97, 255, 0.4);
+  border-radius: 14px;
+  display: inline-flex;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 1rem;
+  height: 44px;
+  justify-content: center;
+  width: 44px;
+}
+
+.adminBrandName {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.adminBrandMeta,
+.adminGroupLabel,
+.adminCardLabel {
+  color: var(--muted);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.adminGroupLabel {
+  margin-bottom: 12px;
+}
+
+.adminTitle,
+.adminEditorHeader h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.adminLead,
+.adminStatus {
+  color: var(--muted);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+
+.adminSectionList {
+  display: grid;
+  gap: 10px;
+}
+
+.adminSectionButton,
+.adminSaveButton {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.78rem;
+  gap: 10px;
+  padding: 12px 14px;
+  text-align: left;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.adminSectionButton:hover,
+.adminSaveButton:hover,
+.activeAdminSection {
+  background: rgba(0, 229, 255, 0.08);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.adminSectionDot {
+  background: rgba(0, 229, 255, 0.45);
+  border-radius: 999px;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+}
+
+.adminActions {
+  display: grid;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.adminMain {
+  display: grid;
+  gap: 22px;
+  padding: 26px;
+}
+
+.adminTopbar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.adminTopbarMeta {
+  display: flex;
+  gap: 10px;
+}
+
+.adminMetaBadge,
+.adminEditorPill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.72rem;
+  padding: 8px 12px;
+}
+
+.adminOverviewGrid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.adminOverviewCard {
+  align-items: center;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.adminOverviewCard::before {
+  content: "";
+  position: absolute;
+  inset: auto -20px -20px auto;
+  width: 90px;
+  height: 90px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.adminOverviewCard.violet {
+  box-shadow: inset 0 0 0 1px rgba(199, 120, 255, 0.12);
+}
+
+.adminOverviewCard.blue {
+  box-shadow: inset 0 0 0 1px rgba(62, 159, 255, 0.12);
+}
+
+.adminOverviewCard.orange {
+  box-shadow: inset 0 0 0 1px rgba(255, 128, 76, 0.12);
+}
+
+.adminOverviewCard.green {
+  box-shadow: inset 0 0 0 1px rgba(58, 210, 130, 0.12);
+}
+
+.adminCardValue {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  margin-top: 8px;
+}
+
+.adminCardIcon {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.9rem;
+  height: 46px;
+  justify-content: center;
+  width: 46px;
+  position: relative;
+  z-index: 1;
+}
+
+.adminOverviewCard.violet .adminCardIcon {
+  background: rgba(199, 120, 255, 0.18);
+  color: #d79cff;
+}
+
+.adminOverviewCard.blue .adminCardIcon {
+  background: rgba(62, 159, 255, 0.18);
+  color: #72b8ff;
+}
+
+.adminOverviewCard.orange .adminCardIcon {
+  background: rgba(255, 128, 76, 0.18);
+  color: #ff9b73;
+}
+
+.adminOverviewCard.green .adminCardIcon {
+  background: rgba(58, 210, 130, 0.18);
+  color: #6fe4a0;
+}
+
+.adminContentGrid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) 320px;
+}
+
+.adminEditorPanel {
+  min-height: 70vh;
+  padding: 24px;
+  border-radius: 18px;
+}
+
+.adminEditorHeader {
+  align-items: start;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.adminInfoPanel {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+  background: transparent;
+  border: 0;
+}
+
+.adminInfoCard {
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.adminInfoCard h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.adminTips {
+  display: grid;
+  gap: 12px;
+}
+
+.adminTips p {
+  color: var(--muted);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.78rem;
+  line-height: 1.8;
+}
+
+.adminStatusLarge {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.lightPanel {
+  background: #f7f8fb;
+  border: 1px solid #d9dfeb;
+  color: #111827;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.lightPanel .adminEyebrow {
+  color: #7c3aed;
+}
+
+.lightPanel .adminLead,
+.lightPanel .adminTips p,
+.lightPanel .adminStatusLarge {
+  color: #4b5563;
+}
+
+.adminSectionIcon {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.68rem;
+  height: 28px;
+  justify-content: center;
+  width: 28px;
+}
+
+.adminSectionSvg {
+  display: block;
+  height: 15px;
+  width: 15px;
+}
+
+.adminLogoutButton,
+.adminMiniButton {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.76rem;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.adminLogoutButton {
+  padding: 12px 14px;
+}
+
+.adminLogoutButton:hover,
+.adminMiniButton:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.adminMiniButton {
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.adminMiniButton.danger:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.adminFormGrid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.adminField {
+  display: grid;
+  gap: 8px;
+}
+
+.adminField.full {
+  grid-column: 1 / -1;
+}
+
+.adminField span {
+  color: #4b5563;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.adminField input,
+.adminField textarea,
+.adminTable input,
+.adminTable textarea {
+  background: #fff;
+  border: 1px solid #d5dceb;
+  border-radius: 12px;
+  color: #111827;
+  outline: none;
+  padding: 12px 14px;
+  width: 100%;
+}
+
+.adminField textarea,
+.adminTable textarea {
+  resize: vertical;
+}
+
+.adminField input:focus,
+.adminField textarea:focus,
+.adminTable input:focus,
+.adminTable textarea:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.adminCollectionSections {
+  display: grid;
+  gap: 18px;
+}
+
+.adminSubSection {
+  background: #fff;
+  border: 1px solid #d9dfeb;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.adminSubSectionHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.adminSubSectionHeader h3 {
+  color: #111827;
+  font-size: 1.1rem;
+}
+
+.adminTableWrap {
+  overflow-x: auto;
+}
+
+.adminTable {
+  border-collapse: collapse;
+  min-width: 840px;
+  width: 100%;
+}
+
+.adminTable.compact {
+  min-width: 560px;
+}
+
+.adminTable th,
+.adminTable td {
+  border-top: 1px solid #e5e7eb;
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.adminTable th {
+  color: #6b7280;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.adminUploadCell {
+  min-width: 180px;
+}
+
+.adminUploadButton {
+  align-items: center;
+  background: #111827;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.72rem;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 10px 14px;
+}
+
+.adminUploadButton input {
+  display: none;
+}
+
+.adminImagePreview {
+  align-items: center;
+  background: #f3f4f6;
+  border: 1px solid #d5dceb;
+  border-radius: 14px;
+  color: #4b5563;
+  display: flex;
+  font-family: var(--font-space-mono), monospace;
+  height: 72px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 72px;
+}
+
+.adminLoginPage {
+  align-items: center;
+  background:
+    radial-gradient(circle at top right, rgba(166, 212, 255, 0.5), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(126, 186, 255, 0.5), transparent 22%),
+    linear-gradient(180deg, #73b4f4 0%, #69a9ea 100%);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 40px 24px;
+}
+
+.adminLoginShell {
+  width: min(1080px, 100%);
+}
+
+.adminLoginStage {
+  background:
+    radial-gradient(circle at 72% 24%, rgba(0, 194, 255, 0.22), transparent 18%),
+    radial-gradient(circle at 35% 70%, rgba(122, 200, 255, 0.16), transparent 16%),
+    linear-gradient(145deg, #0b4a8b 0%, #0a5db9 52%, #0a4f9a 100%);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(11, 48, 105, 0.35);
+  min-height: 68vh;
+  overflow: hidden;
+  padding: 56px 40px;
+  position: relative;
+}
+
+.adminLoginDecor,
+.adminLoginWave,
+.adminLoginScribble {
+  pointer-events: none;
+  position: absolute;
+}
+
+.adminLoginDecor {
+  background: radial-gradient(circle, rgba(117, 194, 255, 0.95), rgba(117, 194, 255, 0.18) 62%, transparent 70%);
+  filter: blur(12px);
+  opacity: 0.42;
+}
+
+.adminLoginDecorOne {
+  height: 260px;
+  right: -90px;
+  top: -70px;
+  width: 260px;
+}
+
+.adminLoginDecorTwo {
+  bottom: -50px;
+  height: 220px;
+  left: -70px;
+  width: 220px;
+}
+
+.adminLoginDecorThree {
+  height: 180px;
+  right: 10%;
+  top: 22%;
+  width: 180px;
+}
+
+.adminLoginWave {
+  border: 20px solid rgba(122, 200, 255, 0.45);
+  border-left-color: transparent;
+  border-radius: 999px;
+  border-top-color: transparent;
+  filter: blur(6px);
+  opacity: 0.9;
+}
+
+.adminLoginWaveLeft {
+  height: 120px;
+  left: 22%;
+  top: 54%;
+  transform: rotate(-30deg);
+  width: 120px;
+}
+
+.adminLoginWaveBottom {
+  border-width: 14px;
+  bottom: 38px;
+  height: 90px;
+  right: 90px;
+  transform: rotate(18deg);
+  width: 90px;
+}
+
+.adminLoginScribble {
+  border: 16px solid rgba(4, 39, 83, 0.5);
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-radius: 999px;
+  border-top-color: transparent;
+  filter: blur(5px);
+}
+
+.adminLoginScribbleOne {
+  height: 140px;
+  right: 120px;
+  top: 85px;
+  transform: rotate(20deg);
+  width: 180px;
+}
+
+.adminLoginScribbleTwo {
+  border-width: 12px;
+  height: 110px;
+  left: 120px;
+  top: 150px;
+  transform: rotate(-34deg);
+  width: 150px;
+}
+
+.adminLoginCardWrap {
+  align-items: center;
+  display: grid;
+  gap: 36px;
+  grid-template-columns: 140px minmax(320px, 1fr);
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 520px;
+  min-height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.adminLoginMark {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+}
+
+.adminLoginMarkBar {
+  background: linear-gradient(180deg, #cae7ff, #7ec0ff);
+  border-radius: 999px;
+  box-shadow: 0 10px 18px rgba(3, 32, 79, 0.28);
+  display: block;
+  position: relative;
+}
+
+.adminLoginMarkBar::after {
+  background: inherit;
+  border-radius: inherit;
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform-origin: center;
+}
+
+.adminLoginMarkBar.top {
+  height: 28px;
+  transform: rotate(-45deg);
+  width: 88px;
+}
+
+.adminLoginMarkBar.top::after {
+  transform: translate(34px, 34px) rotate(90deg);
+}
+
+.adminLoginMarkBar.bottom {
+  height: 22px;
+  transform: rotate(-45deg) scale(0.75);
+  width: 66px;
+}
+
+.adminLoginMarkBar.bottom::after {
+  transform: translate(26px, 26px) rotate(90deg);
+}
+
+.adminLoginGlass {
+  backdrop-filter: blur(18px);
+  background: linear-gradient(180deg, rgba(73, 150, 255, 0.34), rgba(46, 127, 232, 0.24));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  box-shadow: 0 24px 45px rgba(9, 35, 78, 0.28);
+  display: grid;
+  gap: 14px;
+  padding: 30px 34px;
+  position: relative;
+}
+
+.adminLoginGlass::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.28), transparent 40%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.adminLoginForm {
+  position: relative;
+  z-index: 1;
+}
+
+.adminLoginLogo {
+  color: #eaf5ff;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.adminLoginHeading {
+  color: #fff;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.adminLoginText {
+  color: rgba(234, 245, 255, 0.9);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  margin-bottom: 4px;
+}
+
+.adminLoginField {
+  display: grid;
+  gap: 8px;
+}
+
+.adminLoginField span,
+.adminLoginMeta,
+.adminLoginStatus {
+  color: #d9edff;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.72rem;
+}
+
+.adminLoginField input {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  color: #12335f;
+  outline: none;
+  padding: 12px 14px;
+}
+
+.adminLoginField input::placeholder {
+  color: #9ab0ca;
+}
+
+.adminLoginField input:focus {
+  border-color: #d3ebff;
+  box-shadow: 0 0 0 3px rgba(213, 235, 255, 0.24);
+}
+
+.adminLoginMeta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -2px;
+  opacity: 0.85;
+}
+
+.adminLoginSubmit {
+  background: linear-gradient(180deg, #123c70, #0b2d57);
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 4px;
+  padding: 10px 16px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.adminLoginSubmit:hover {
+  box-shadow: 0 12px 24px rgba(7, 31, 63, 0.28);
+  transform: translateY(-1px);
+}
+
+.adminLoginSubmit:disabled {
+  cursor: wait;
+  opacity: 0.8;
+}
+
+.adminLoginStatus {
+  min-height: 18px;
+  text-align: center;
+}
+
+.adminTextarea {
+  background: #0b1016;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.8rem;
+  height: calc(70vh - 80px);
+  line-height: 1.7;
+  outline: none;
+  padding: 16px;
+  resize: vertical;
+  width: 100%;
+}
+
+.adminTextarea:focus {
+  border-color: var(--accent);
+}
+
 .servicesGrid,
 .statsGrid {
   background: var(--border);
@@ -1173,9 +1997,21 @@ textarea {
   .contentStrip,
   .pageIntroBand,
   .pricingGrid,
-  .signalGrid {
+  .signalGrid,
+  .adminShell {
     gap: 40px;
     grid-template-columns: 1fr;
+  }
+
+  .adminOverviewGrid,
+  .adminContentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .adminTopbar {
+    align-items: start;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .statsGrid {
@@ -1215,5 +2051,13 @@ textarea {
 
   .contactForm {
     padding: 32px 24px;
+  }
+
+  .adminPage {
+    padding: 120px 24px 24px;
+  }
+
+  .adminMain {
+    padding: 0;
   }
 }

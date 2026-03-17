@@ -1,69 +1,56 @@
 import Link from "next/link";
-import { projects, services, stats } from "@/data/site";
+import { getSiteContent } from "@/lib/site-content";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const content = await getSiteContent();
+  const { home } = content;
+  const { projects, services, stats } = content.collections;
+
   return (
     <main>
       <section className="hero">
         <div className="heroGlow" />
         <div className="heroGlowSecondary" />
         <div className="heroContent">
-          <p className="heroTag">{"// Web Developer and Designer"}</p>
+          <p className="heroTag">{home.heroTag}</p>
           <h1 className="heroTitle">
-            Building Sites
+            {home.heroTitleLine1}
             <br />
-            <span>That Convert.</span>
+            <span>{home.heroTitleLine2}</span>
           </h1>
-          <p className="heroDescription">
-            WordPress development, server setup, business email, and bespoke
-            design. From concept to launch, every detail is built to support your
-            brand.
-          </p>
+          <p className="heroDescription">{home.heroDescription}</p>
           <div className="heroButtons">
             <Link href="/projects" className="buttonPrimary">
-              View Work
+              {home.primaryCta}
             </Link>
             <Link href="/contact" className="buttonSecondary">
-              Get In Touch
+              {home.secondaryCta}
             </Link>
           </div>
         </div>
         <div className="heroScroll">
           <div className="scrollLine" />
-          Explore pages
+          {home.scrollLabel}
         </div>
       </section>
 
       <section className="pageSection">
-        <p className="sectionLabel reveal">{"// Website Sections"}</p>
-        <h2 className="sectionTitle reveal">Separate pages for every key area</h2>
+        <p className="sectionLabel reveal">{home.sectionsLabel}</p>
+        <h2 className="sectionTitle reveal">{home.sectionsTitle}</h2>
         <div className="featureGrid reveal">
-          <Link href="/services" className="featureCard">
-            <div className="featureMeta">01</div>
-            <h3>Services</h3>
-            <p>Dedicated page for delivery areas, infrastructure work, and design support.</p>
-          </Link>
-          <Link href="/skills" className="featureCard">
-            <div className="featureMeta">02</div>
-            <h3>Skills</h3>
-            <p>Separate route for stack overview, strengths, and supporting tools.</p>
-          </Link>
-          <Link href="/projects" className="featureCard">
-            <div className="featureMeta">03</div>
-            <h3>Projects</h3>
-            <p>Focused portfolio page instead of mixing all project content into the homepage.</p>
-          </Link>
-          <Link href="/contact" className="featureCard">
-            <div className="featureMeta">04</div>
-            <h3>Contact</h3>
-            <p>Direct route for communication channels and project inquiries.</p>
-          </Link>
+          {home.sectionCards.map((card) => (
+            <Link href={card.href} className="featureCard" key={card.href}>
+              <div className="featureMeta">{card.number}</div>
+              <h3>{card.title}</h3>
+              <p>{card.description}</p>
+            </Link>
+          ))}
         </div>
       </section>
 
       <section className="servicesSection">
-        <p className="sectionLabel reveal">{"// What I Do"}</p>
-        <h2 className="sectionTitle reveal">Services</h2>
+        <p className="sectionLabel reveal">{home.servicesLabel}</p>
+        <h2 className="sectionTitle reveal">{home.servicesTitle}</h2>
         <div className="servicesGrid reveal">
           {services.map((service) => (
             <article className="serviceCard" key={service.title}>
@@ -77,8 +64,8 @@ export default function HomePage() {
       </section>
 
       <section className="projectsSection">
-        <p className="sectionLabel reveal">{"// Featured Work"}</p>
-        <h2 className="sectionTitle reveal">Recent Projects</h2>
+        <p className="sectionLabel reveal">{home.projectsLabel}</p>
+        <h2 className="sectionTitle reveal">{home.projectsTitle}</h2>
         <div className="projectsGrid reveal">
           {projects.map((project) => (
             <article className="projectCard" key={project.title}>
@@ -97,7 +84,7 @@ export default function HomePage() {
                 <h3 className="projectName">{project.title}</h3>
                 <p className="projectDescription">{project.description}</p>
                 <Link href="/contact" className="projectLink">
-                  Start a Similar Project
+                  {home.projectCta}
                 </Link>
               </div>
             </article>
