@@ -1,0 +1,9 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="760" rx="32" fill="#FEF3C7"/>
+<circle cx="906" cy="238" r="160" fill="#4338CA"/>
+<circle cx="1014" cy="184" r="96" fill="#7C3AED"/>
+<rect x="66" y="72" width="1068" height="616" rx="28" fill="#F59E0B"/>
+<rect x="110" y="126" width="450" height="420" rx="26" fill="#FEF3C7"/>
+<rect x="610" y="502" width="442" height="92" rx="22" fill="#111827"/>
+<text x="146" y="210" fill="#111827" font-family="Georgia" font-size="72" font-style="italic" font-weight="700">Spark Launch</text>
+</svg>

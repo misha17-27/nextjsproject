@@ -1,0 +1,11 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="760" rx="36" fill="#0F172A"/>
+<rect x="56" y="56" width="1088" height="648" rx="28" fill="#E2E8F0"/>
+<rect x="96" y="96" width="1008" height="138" rx="20" fill="#1E293B"/>
+<rect x="96" y="274" width="308" height="370" rx="22" fill="#CBD5E1"/>
+<rect x="430" y="274" width="308" height="370" rx="22" fill="#94A3B8"/>
+<rect x="764" y="274" width="340" height="170" rx="22" fill="#2563EB"/>
+<rect x="764" y="474" width="340" height="170" rx="22" fill="#F8FAFC"/>
+<text x="130" y="176" fill="#F8FAFC" font-family="Arial" font-size="56" font-weight="700">Corporate Website</text>
+<text x="130" y="212" fill="#CBD5E1" font-family="Arial" font-size="24">Service architecture and trust-building pages</text>
+</svg>

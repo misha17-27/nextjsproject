@@ -1,0 +1,11 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="760" rx="32" fill="#FFF1F2"/>
+<rect x="56" y="56" width="1088" height="648" rx="28" fill="#FFFBEB"/>
+<rect x="96" y="96" width="1008" height="88" rx="18" fill="#BE185D"/>
+<circle cx="306" cy="412" r="176" fill="#F9A8D4"/>
+<rect x="548" y="236" width="556" height="176" rx="24" fill="#FBCFE8"/>
+<rect x="548" y="442" width="170" height="188" rx="24" fill="#E9D5FF"/>
+<rect x="748" y="442" width="170" height="188" rx="24" fill="#FDE68A"/>
+<rect x="948" y="442" width="156" height="188" rx="24" fill="#111827"/>
+<text x="126" y="150" fill="#FFFFFF" font-family="Arial" font-size="42" font-weight="700">Atelier Beauty</text>
+</svg>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
+import { AppChrome } from "@/components/app-chrome";
 import { SiteEffects } from "@/components/site-effects";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
 import { getSiteContent } from "@/lib/site-content";
 import "./globals.css";
 
@@ -22,9 +21,9 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <SiteEffects />
-        <SiteHeader navigation={content.navigation} />
-        {children}
-        <SiteFooter navigation={content.navigation} footer={content.footer} />
+        <AppChrome navigation={content.navigation} footer={content.footer}>
+          {children}
+        </AppChrome>
       </body>
     </html>
   );

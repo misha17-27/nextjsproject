@@ -382,6 +382,156 @@
       }
     ],
     "projectCta": "Discuss a project",
+    "categoryLead": "Browse by category, then open the demo builds inside each one to see more specific project directions and visual references.",
+    "categories": [
+      {
+        "slug": "e-commerce-platform",
+        "icon": "EC",
+        "tone": "projectImageOne",
+        "title": "E-Commerce Platform",
+        "summary": "Online stores, product storytelling, checkout clarity, and conversion-focused user flows.",
+        "coverImage": "/project-demos/ecommerce-category.svg",
+        "demos": [
+          {
+            "slug": "luna-market",
+            "title": "Luna Market",
+            "subtitle": "Lifestyle commerce storefront",
+            "image": "/project-demos/luna-market.svg",
+            "description": "A premium storefront concept with cleaner product hierarchy, stronger campaign areas, and a more modern mobile shopping flow.",
+            "services": [
+              "UI Design",
+              "WooCommerce",
+              "Conversion UX"
+            ],
+            "result": "Sharper product discovery and a lighter path from collection page to checkout."
+          },
+          {
+            "slug": "north-supply",
+            "title": "North Supply",
+            "subtitle": "Outdoor gear retail demo",
+            "image": "/project-demos/north-supply.svg",
+            "description": "A category-led shopping demo for an outdoor brand built around merchandising, bundles, and editorial product presentation.",
+            "services": [
+              "Brand Web",
+              "Shop Build",
+              "Product Pages"
+            ],
+            "result": "Stronger visual storytelling around products and better separation between campaigns and core catalogue."
+          },
+          {
+            "slug": "atelier-beauty",
+            "title": "Atelier Beauty",
+            "subtitle": "Cosmetics and bundles concept",
+            "image": "/project-demos/atelier-beauty.svg",
+            "description": "A beauty e-commerce direction focused on trust, repeat purchase behaviour, and cleaner product education blocks.",
+            "services": [
+              "Design System",
+              "E-Commerce",
+              "Launch Assets"
+            ],
+            "result": "A softer premium feel paired with clearer bundle logic and faster route to purchase."
+          }
+        ]
+      },
+      {
+        "slug": "corporate-website",
+        "icon": "CW",
+        "tone": "projectImageTwo",
+        "title": "Corporate Website",
+        "summary": "Company presentation sites, service architecture, trust signals, and clearer lead generation.",
+        "coverImage": "/project-demos/corporate-category.svg",
+        "demos": [
+          {
+            "slug": "vertex-group",
+            "title": "Vertex Group",
+            "subtitle": "Industrial company website",
+            "image": "/project-demos/vertex-group.svg",
+            "description": "A polished corporate direction for an engineering team that needed clearer service structure and a more current visual system.",
+            "services": [
+              "Corporate Site",
+              "Content Architecture",
+              "CMS"
+            ],
+            "result": "More credible first impression, improved service legibility, and a stronger inquiry path."
+          },
+          {
+            "slug": "harbor-advisory",
+            "title": "Harbor Advisory",
+            "subtitle": "Consulting firm presentation",
+            "image": "/project-demos/harbor-advisory.svg",
+            "description": "A consulting website concept focused on authority, team presentation, and case-led trust building for new leads.",
+            "services": [
+              "Consulting Web",
+              "Copy Layout",
+              "Lead Flow"
+            ],
+            "result": "A calmer, higher-trust interface that positions the team with more clarity and confidence."
+          },
+          {
+            "slug": "axis-logistics",
+            "title": "Axis Logistics",
+            "subtitle": "Logistics and operations demo",
+            "image": "/project-demos/axis-logistics.svg",
+            "description": "A practical corporate layout for a logistics business combining service depth, network coverage, and contact readiness.",
+            "services": [
+              "Service Website",
+              "Operations UI",
+              "Responsive Build"
+            ],
+            "result": "A more structured business presence that makes complex service information easier to scan."
+          }
+        ]
+      },
+      {
+        "slug": "landing-page",
+        "icon": "LP",
+        "tone": "projectImageThree",
+        "title": "Landing Page",
+        "summary": "Campaign pages, product launches, focused offers, and performance-driven message sequencing.",
+        "coverImage": "/project-demos/landing-category.svg",
+        "demos": [
+          {
+            "slug": "spark-launch",
+            "title": "Spark Launch",
+            "subtitle": "Startup product reveal page",
+            "image": "/project-demos/spark-launch.svg",
+            "description": "A fast-moving launch page concept designed for product reveal campaigns and early waitlist acquisition.",
+            "services": [
+              "Landing Page",
+              "Messaging",
+              "Motion Direction"
+            ],
+            "result": "Clearer sequencing from problem to product to signup, with lighter friction on the hero section."
+          },
+          {
+            "slug": "frame-studio",
+            "title": "Frame Studio",
+            "subtitle": "Creative service promo page",
+            "image": "/project-demos/frame-studio.svg",
+            "description": "A bold service landing page for a creative studio with editorial rhythm, large typography, and focused conversion points.",
+            "services": [
+              "Art Direction",
+              "One Page Site",
+              "Conversion Design"
+            ],
+            "result": "A more distinct tone and better retention of the core offer above the fold."
+          },
+          {
+            "slug": "pulse-event",
+            "title": "Pulse Event",
+            "subtitle": "Conference registration page",
+            "image": "/project-demos/pulse-event.svg",
+            "description": "A promotional landing page for an event campaign with speaker sections, timeline blocks, and conversion-focused registration areas.",
+            "services": [
+              "Campaign Page",
+              "Registration UX",
+              "Responsive Design"
+            ],
+            "result": "Stronger attendee motivation with clearer event value and cleaner signup emphasis."
+          }
+        ]
+      }
+    ],
     "stories": [
       {
         "name": "Retail Brand",

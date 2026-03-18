@@ -67,7 +67,11 @@ export default async function HomePage() {
         <p className="sectionLabel reveal">{home.projectsLabel}</p>
         <h2 className="sectionTitle reveal">{home.projectsTitle}</h2>
         <div className="projectsGrid reveal">
-          {projects.map((project) => (
+          {projects.map((project) => {
+            const category = content.projectsPage.categories.find((item) => item.title === project.title);
+            const href = category ? `/projects/${category.slug}` : "/projects";
+
+            return (
             <article className="projectCard" key={project.title}>
               <div className={`projectImage ${project.tone}`}>
                 <div className="projectOverlay" />
@@ -83,12 +87,13 @@ export default async function HomePage() {
                 </div>
                 <h3 className="projectName">{project.title}</h3>
                 <p className="projectDescription">{project.description}</p>
-                <Link href="/contact" className="projectLink">
+                <Link href={href} className="projectLink">
                   {home.projectCta}
                 </Link>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </section>
 

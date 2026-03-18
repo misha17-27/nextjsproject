@@ -14,6 +14,24 @@ export type Project = {
   title: string;
   description: string;
 };
+export type ProjectDemo = {
+  slug: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  description: string;
+  services: string[];
+  result: string;
+};
+export type ProjectCategory = {
+  slug: string;
+  icon: string;
+  tone: string;
+  title: string;
+  summary: string;
+  coverImage: string;
+  demos: ProjectDemo[];
+};
 export type Stat = { number: string; label: string };
 export type Contact = {
   href: string;
@@ -92,6 +110,8 @@ export type SiteContent = {
     heroLead: string;
     signals: Array<{ label: string; value: string }>;
     projectCta: string;
+    categoryLead: string;
+    categories: ProjectCategory[];
     stories: Array<{ name: string; challenge: string; solution: string; result: string }>;
     quoteTag: string;
     quoteTitle: string;

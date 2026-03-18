@@ -1,0 +1,10 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="760" rx="32" fill="#0F172A"/>
+<rect x="56" y="56" width="1088" height="648" rx="28" fill="#F8FAFC"/>
+<rect x="96" y="96" width="1008" height="94" rx="18" fill="#111827"/>
+<rect x="96" y="226" width="1008" height="174" rx="24" fill="#7C3AED"/>
+<rect x="96" y="434" width="314" height="194" rx="24" fill="#1D4ED8"/>
+<rect x="442" y="434" width="314" height="194" rx="24" fill="#E9D5FF"/>
+<rect x="788" y="434" width="316" height="194" rx="24" fill="#FDE68A"/>
+<text x="132" y="156" fill="#F8FAFC" font-family="Arial" font-size="44" font-weight="700">Pulse Event</text>
+</svg>

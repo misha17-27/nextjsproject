@@ -1,0 +1,10 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="760" rx="32" fill="#FFF7ED"/>
+<rect x="54" y="54" width="1092" height="652" rx="26" fill="#FFFFFF"/>
+<rect x="96" y="92" width="1008" height="84" rx="18" fill="#111827"/>
+<rect x="96" y="214" width="480" height="412" rx="24" fill="#F59E0B"/>
+<rect x="612" y="214" width="492" height="190" rx="24" fill="#FED7AA"/>
+<rect x="612" y="436" width="234" height="190" rx="24" fill="#1D4ED8"/>
+<rect x="870" y="436" width="234" height="190" rx="24" fill="#E5E7EB"/>
+<text x="132" y="146" fill="#F8FAFC" font-family="Arial" font-size="44" font-weight="700">Luna Market</text>
+</svg>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getSiteContent } from "@/lib/site-content";
 
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function ProjectsPage() {
   const content = await getSiteContent();
-  const { projects, stats } = content.collections;
+  const { stats } = content.collections;
   const page = content.projectsPage;
 
   return (
@@ -32,28 +33,28 @@ export default async function ProjectsPage() {
       </section>
 
       <section className="projectsSection">
+        <div className="projectsPageIntro reveal">
+          <p className="pageLead">{page.categoryLead}</p>
+        </div>
         <div className="projectsGrid reveal">
-          {projects.map((project) => (
-            <article className="projectCard" key={project.title}>
-              <div className={`projectImage ${project.tone}`}>
+          {page.categories.map((category) => (
+            <Link href={`/projects/${category.slug}`} className="projectCard categoryCard clickableProjectCard" key={category.slug}>
+              <div className="projectImage categoryImage">
+                <Image src={category.coverImage} alt={category.title} fill sizes="(max-width: 900px) 100vw, 33vw" />
                 <div className="projectOverlay" />
-                {project.icon}
               </div>
               <div className="projectBody">
                 <div className="projectTags">
-                  {project.tags.map((tag) => (
-                    <span className="projectTag" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
+                  <span className="projectTag">{category.icon}</span>
+                  <span className="projectTag">{`${category.demos.length} demos`}</span>
                 </div>
-                <h2 className="projectName">{project.title}</h2>
-                <p className="projectDescription">{project.description}</p>
-                <Link href="/contact" className="projectLink">
-                  {page.projectCta}
-                </Link>
+                <h2 className="projectName">{category.title}</h2>
+                <p className="projectDescription">{category.summary}</p>
+                <span className="projectLink">
+                  View category
+                </span>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>

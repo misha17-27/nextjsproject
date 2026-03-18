@@ -1,15 +1,29 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
-import type { Contact, NavItem, Project, Service, SiteContent, Skill, Stat, Tool } from "@/lib/site-content";
+import type {
+  Contact,
+  NavItem,
+  Project,
+  ProjectCategory,
+  ProjectDemo,
+  Service,
+  SiteContent,
+  Skill,
+  Stat,
+  Tool,
+} from "@/lib/site-content";
 
 type SectionKey =
   | "home"
   | "servicesPage"
   | "skillsPage"
   | "projectsPage"
+  | "projectCategories"
+  | "projectDemos"
   | "contactPage"
   | "collections"
   | "navigation"
@@ -43,8 +57,18 @@ const sectionMeta: Array<{ key: SectionKey; label: string; icon: ReactNode }> = 
   },
   {
     key: "projectsPage",
-    label: "Projects",
+    label: "Projects Page",
     icon: <SidebarIcon><rect x="4" y="5" width="16" height="14" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.8" /><path d="m8 14 2.5-2.5L13 14l2-2 3 3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /><circle cx="9" cy="9" r="1.4" fill="currentColor" /></SidebarIcon>,
+  },
+  {
+    key: "projectCategories",
+    label: "Categories",
+    icon: <SidebarIcon><rect x="4" y="5" width="16" height="14" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.8" /><path d="m8 14 2.5-2.5L13 14l2-2 3 3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /><circle cx="9" cy="9" r="1.4" fill="currentColor" /></SidebarIcon>,
+  },
+  {
+    key: "projectDemos",
+    label: "Projects",
+    icon: <SidebarIcon><path d="M6 6h12v12H6z" fill="none" stroke="currentColor" strokeWidth="1.8" /><path d="M9 9h6M9 12h6M9 15h4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></SidebarIcon>,
   },
   {
     key: "contactPage",
@@ -81,19 +105,24 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
   const [content, setContent] = useState<SiteContent>(initialContent);
   const [status, setStatus] = useState("Ready");
   const [isSaving, setIsSaving] = useState(false);
-  const [isUploading, setIsUploading] = useState<number | null>(null);
+  const [isUploading, setIsUploading] = useState<string | null>(null);
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+  const [selectedDemoRef, setSelectedDemoRef] = useState({ categoryIndex: 0, demoIndex: 0 });
 
   const overviewCards = useMemo(
     () => [
       { label: "Editable Pages", value: "5", accent: "violet" },
       { label: "Services", value: String(content.collections.services.length), accent: "orange" },
-      { label: "Projects", value: String(content.collections.projects.length), accent: "blue" },
+      { label: "Project Categories", value: String(content.projectsPage.categories.length), accent: "blue" },
       { label: "Contacts", value: String(content.collections.contacts.length), accent: "green" },
     ],
-    [content.collections.contacts.length, content.collections.projects.length, content.collections.services.length],
+    [content.collections.contacts.length, content.collections.services.length, content.projectsPage.categories.length],
   );
 
   const pageTitle = sectionMeta.find((section) => section.key === selectedSection)?.label ?? "Admin";
+  const selectedCategory = content.projectsPage.categories[selectedCategoryIndex] ?? null;
+  const selectedDemoCategory = content.projectsPage.categories[selectedDemoRef.categoryIndex] ?? null;
+  const selectedDemo = selectedDemoCategory?.demos[selectedDemoRef.demoIndex] ?? null;
 
   const updateTopLevelSection = <T extends keyof SiteContent>(key: T, value: SiteContent[T]) => {
     setContent((current) => ({ ...current, [key]: value }));
@@ -151,6 +180,31 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
       return { ...current, collections: { ...current.collections, projects } };
     });
 
+  const updateProjectCategory = (
+    index: number,
+    field: keyof ProjectCategory,
+    value: string | ProjectDemo[],
+  ) =>
+    setContent((current) => {
+      const categories = [...current.projectsPage.categories];
+      categories[index] = { ...categories[index], [field]: value } as ProjectCategory;
+      return { ...current, projectsPage: { ...current.projectsPage, categories } };
+    });
+
+  const updateProjectDemo = (
+    categoryIndex: number,
+    demoIndex: number,
+    field: keyof ProjectDemo,
+    value: string | string[],
+  ) =>
+    setContent((current) => {
+      const categories = [...current.projectsPage.categories];
+      const demos = [...categories[categoryIndex].demos];
+      demos[demoIndex] = { ...demos[demoIndex], [field]: value } as ProjectDemo;
+      categories[categoryIndex] = { ...categories[categoryIndex], demos };
+      return { ...current, projectsPage: { ...current.projectsPage, categories } };
+    });
+
   const updateContact = (index: number, field: keyof Contact, value: string) =>
     setContent((current) => {
       const contacts = [...current.collections.contacts];
@@ -184,8 +238,12 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
     window.location.href = "/admin/login";
   };
 
-  const handleProjectImageUpload = async (index: number, file: File) => {
-    setIsUploading(index);
+  const handleMediaUpload = async (
+    uploadKey: string,
+    file: File,
+    onSuccess: (path: string) => void,
+  ) => {
+    setIsUploading(uploadKey);
     setStatus("Uploading image...");
     try {
       const formData = new FormData();
@@ -195,7 +253,7 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
       if (!response.ok || !result.ok || !result.path) {
         throw new Error(result.error ?? "Upload failed");
       }
-      updateProject(index, "image", result.path);
+      onSuccess(result.path);
       setStatus("Image uploaded");
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Upload failed");
@@ -233,6 +291,71 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
       ...content.collections.projects,
       { icon: "NW", tone: "projectImageOne", image: "", tags: ["Tag"], title: "New Project", description: "Describe the new project." },
     ]);
+
+  const addProjectCategory = () =>
+    setContent((current) => {
+      const categories = [
+        ...current.projectsPage.categories,
+        {
+          slug: `new-category-${current.projectsPage.categories.length + 1}`,
+          icon: "NC",
+          tone: "projectImageOne",
+          title: "New Category",
+          summary: "Describe this category.",
+          coverImage: "",
+          demos: [],
+        },
+      ];
+      setSelectedCategoryIndex(categories.length - 1);
+      return { ...current, projectsPage: { ...current.projectsPage, categories } };
+    });
+
+  const removeProjectCategory = (categoryIndex: number) =>
+    setContent((current) => {
+      const categories = current.projectsPage.categories.filter((_, index) => index !== categoryIndex);
+      setSelectedCategoryIndex((previous) => Math.max(0, Math.min(previous, categories.length - 1)));
+      setSelectedDemoRef({ categoryIndex: Math.max(0, Math.min(categoryIndex, categories.length - 1)), demoIndex: 0 });
+      return { ...current, projectsPage: { ...current.projectsPage, categories } };
+    });
+
+  const addProjectDemo = (categoryIndex: number) =>
+    setContent((current) => {
+      const categories = [...current.projectsPage.categories];
+      const category = categories[categoryIndex];
+      const nextDemoIndex = category.demos.length;
+      categories[categoryIndex] = {
+        ...category,
+        demos: [
+          ...category.demos,
+          {
+            slug: `new-demo-${category.demos.length + 1}`,
+            title: "New Demo Project",
+            subtitle: "Short subtitle",
+            image: "",
+            description: "Describe the demo project.",
+            services: ["Service"],
+            result: "Describe the result.",
+          },
+        ],
+      };
+      setSelectedDemoRef({ categoryIndex, demoIndex: nextDemoIndex });
+      return { ...current, projectsPage: { ...current.projectsPage, categories } };
+    });
+
+  const removeProjectDemo = (categoryIndex: number, demoIndex: number) =>
+    setContent((current) => {
+      const categories = [...current.projectsPage.categories];
+      const category = categories[categoryIndex];
+      categories[categoryIndex] = {
+        ...category,
+        demos: category.demos.filter((_, index) => index !== demoIndex),
+      };
+      setSelectedDemoRef({
+        categoryIndex,
+        demoIndex: Math.max(0, Math.min(demoIndex, categories[categoryIndex].demos.length - 1)),
+      });
+      return { ...current, projectsPage: { ...current.projectsPage, categories } };
+    });
 
   const addContact = () =>
     updateCollection("contacts", [
@@ -319,10 +442,198 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
       {renderField("Hero Title", content.projectsPage.heroTitle, (value) => updateTopLevelSection("projectsPage", { ...content.projectsPage, heroTitle: value }), { full: true })}
       {renderField("Hero Lead", content.projectsPage.heroLead, (value) => updateTopLevelSection("projectsPage", { ...content.projectsPage, heroLead: value }), { textarea: true, full: true })}
       {renderField("Project CTA", content.projectsPage.projectCta, (value) => updateTopLevelSection("projectsPage", { ...content.projectsPage, projectCta: value }))}
+      {renderField("Category Lead", content.projectsPage.categoryLead, (value) => updateTopLevelSection("projectsPage", { ...content.projectsPage, categoryLead: value }), { textarea: true, full: true })}
       {renderField("Quote Tag", content.projectsPage.quoteTag, (value) => updateTopLevelSection("projectsPage", { ...content.projectsPage, quoteTag: value }))}
       {renderField("Quote Title", content.projectsPage.quoteTitle, (value) => updateTopLevelSection("projectsPage", { ...content.projectsPage, quoteTitle: value }), { full: true })}
       {renderField("Quote Lead", content.projectsPage.quoteLead, (value) => updateTopLevelSection("projectsPage", { ...content.projectsPage, quoteLead: value }), { textarea: true, full: true })}
       {renderField("Quote CTA", content.projectsPage.quoteCta, (value) => updateTopLevelSection("projectsPage", { ...content.projectsPage, quoteCta: value }))}
+    </div>
+  );
+
+  const renderProjectCategoriesEditor = () => (
+    <div className="adminEditorSplit">
+      <section className="adminListPanel">
+        <div className="adminSubSectionHeader">
+          <div>
+            <p className="adminEyebrow">Projects Structure</p>
+            <h3>Categories</h3>
+          </div>
+          <button type="button" className="adminMiniButton" onClick={addProjectCategory}>
+            Add category
+          </button>
+        </div>
+        <div className="adminStackList">
+          {content.projectsPage.categories.map((category, index) => (
+            <div
+              key={category.slug}
+              className={`adminListRow ${selectedCategoryIndex === index ? "activeAdminListRow" : ""}`}
+            >
+              <button
+                type="button"
+                className={`adminListButton ${selectedCategoryIndex === index ? "activeAdminListButton" : ""}`}
+                onClick={() => setSelectedCategoryIndex(index)}
+              >
+                <strong>{category.title}</strong>
+                <span>{category.slug}</span>
+              </button>
+              <div className="adminRowActions">
+                <button
+                  type="button"
+                  className="adminTextAction"
+                  onClick={() => setSelectedCategoryIndex(index)}
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  className="adminTextAction danger"
+                  onClick={() => removeProjectCategory(index)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="adminDetailPanel">
+        {selectedCategory ? (
+          <>
+            <div className="adminSubSectionHeader">
+              <div>
+                <p className="adminEyebrow">Edit Category</p>
+                <h3>{selectedCategory.title}</h3>
+              </div>
+              <button type="button" className="adminMiniButton danger" onClick={() => removeProjectCategory(selectedCategoryIndex)}>
+                Delete category
+              </button>
+            </div>
+            <div className="adminFormGrid">
+              {renderField("Category Slug", selectedCategory.slug, (value) => updateProjectCategory(selectedCategoryIndex, "slug", value))}
+              {renderField("Category Icon", selectedCategory.icon, (value) => updateProjectCategory(selectedCategoryIndex, "icon", value))}
+              {renderField("Category Tone", selectedCategory.tone, (value) => updateProjectCategory(selectedCategoryIndex, "tone", value))}
+              {renderField("Category Title", selectedCategory.title, (value) => updateProjectCategory(selectedCategoryIndex, "title", value))}
+              <label className="adminField full">
+                <span>Cover Image</span>
+                <div className="adminFieldAction">
+                  <input value={selectedCategory.coverImage} onChange={(event) => updateProjectCategory(selectedCategoryIndex, "coverImage", event.target.value)} />
+                  <label className="adminUploadButton">
+                    {isUploading === `category-cover-${selectedCategoryIndex}` ? "Uploading..." : "Upload"}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => {
+                        const file = event.target.files?.[0];
+                        if (file) {
+                          void handleMediaUpload(`category-cover-${selectedCategoryIndex}`, file, (path) =>
+                            updateProjectCategory(selectedCategoryIndex, "coverImage", path),
+                          );
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+              </label>
+              {renderField("Category Summary", selectedCategory.summary, (value) => updateProjectCategory(selectedCategoryIndex, "summary", value), { textarea: true, full: true })}
+            </div>
+          </>
+        ) : (
+          <p className="adminLead">No categories yet. Add the first category to start.</p>
+        )}
+      </section>
+    </div>
+  );
+
+  const renderProjectDemosEditor = () => (
+    <div className="adminEditorSplit">
+      <section className="adminListPanel">
+        <div className="adminSubSectionHeader">
+          <div>
+            <p className="adminEyebrow">Projects Structure</p>
+            <h3>Projects</h3>
+          </div>
+          {selectedDemoCategory ? (
+            <button type="button" className="adminMiniButton" onClick={() => addProjectDemo(selectedDemoRef.categoryIndex)}>
+              Add project
+            </button>
+          ) : null}
+        </div>
+        <div className="adminStackList">
+          {content.projectsPage.categories.map((category, categoryIndex) => (
+            <div className="adminGroupedList" key={category.slug}>
+              <p className="adminGroupedListTitle">{category.title}</p>
+              {category.demos.map((demo, demoIndex) => (
+                <button
+                  key={demo.slug}
+                  type="button"
+                  className={`adminListButton ${selectedDemoRef.categoryIndex === categoryIndex && selectedDemoRef.demoIndex === demoIndex ? "activeAdminListButton" : ""}`}
+                  onClick={() => setSelectedDemoRef({ categoryIndex, demoIndex })}
+                >
+                  <strong>{demo.title}</strong>
+                  <span>{demo.slug}</span>
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="adminDetailPanel">
+        {selectedDemo && selectedDemoCategory ? (
+          <>
+            <div className="adminSubSectionHeader">
+              <div>
+                <p className="adminEyebrow">Edit Project</p>
+                <h3>{selectedDemo.title}</h3>
+              </div>
+              <div className="adminInlineActions">
+                <button type="button" className="adminMiniButton" onClick={() => addProjectDemo(selectedDemoRef.categoryIndex)}>
+                  Duplicate slot
+                </button>
+                <button type="button" className="adminMiniButton danger" onClick={() => removeProjectDemo(selectedDemoRef.categoryIndex, selectedDemoRef.demoIndex)}>
+                  Delete project
+                </button>
+              </div>
+            </div>
+            <div className="adminFormGrid">
+              <label className="adminField full">
+                <span>Parent Category</span>
+                <input value={selectedDemoCategory.title} readOnly />
+              </label>
+              {renderField("Project Slug", selectedDemo.slug, (value) => updateProjectDemo(selectedDemoRef.categoryIndex, selectedDemoRef.demoIndex, "slug", value))}
+              {renderField("Project Title", selectedDemo.title, (value) => updateProjectDemo(selectedDemoRef.categoryIndex, selectedDemoRef.demoIndex, "title", value))}
+              {renderField("Subtitle", selectedDemo.subtitle, (value) => updateProjectDemo(selectedDemoRef.categoryIndex, selectedDemoRef.demoIndex, "subtitle", value), { full: true })}
+              <label className="adminField full">
+                <span>Project Image</span>
+                <div className="adminFieldAction">
+                  <input value={selectedDemo.image} onChange={(event) => updateProjectDemo(selectedDemoRef.categoryIndex, selectedDemoRef.demoIndex, "image", event.target.value)} />
+                  <label className="adminUploadButton">
+                    {isUploading === `demo-${selectedDemoRef.categoryIndex}-${selectedDemoRef.demoIndex}` ? "Uploading..." : "Upload"}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => {
+                        const file = event.target.files?.[0];
+                        if (file) {
+                          void handleMediaUpload(`demo-${selectedDemoRef.categoryIndex}-${selectedDemoRef.demoIndex}`, file, (path) =>
+                            updateProjectDemo(selectedDemoRef.categoryIndex, selectedDemoRef.demoIndex, "image", path),
+                          );
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+              </label>
+              {renderField("Services (one per line)", arrayToLines(selectedDemo.services), (value) => updateProjectDemo(selectedDemoRef.categoryIndex, selectedDemoRef.demoIndex, "services", linesToArray(value)), { textarea: true, full: true })}
+              {renderField("Description", selectedDemo.description, (value) => updateProjectDemo(selectedDemoRef.categoryIndex, selectedDemoRef.demoIndex, "description", value), { textarea: true, full: true })}
+              {renderField("Result", selectedDemo.result, (value) => updateProjectDemo(selectedDemoRef.categoryIndex, selectedDemoRef.demoIndex, "result", value), { textarea: true, full: true })}
+            </div>
+          </>
+        ) : (
+          <p className="adminLead">Select a project from the list to edit it.</p>
+        )}
+      </section>
     </div>
   );
 
@@ -443,14 +754,16 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
                   <td className="adminUploadCell">
                     <input value={project.image ?? ""} onChange={(event) => updateProject(index, "image", event.target.value)} />
                     <label className="adminUploadButton">
-                      {isUploading === index ? "Uploading..." : "Upload"}
+                      {isUploading === `collection-project-${index}` ? "Uploading..." : "Upload"}
                       <input
                         type="file"
                         accept="image/*"
                         onChange={(event) => {
                           const file = event.target.files?.[0];
                           if (file) {
-                            void handleProjectImageUpload(index, file);
+                            void handleMediaUpload(`collection-project-${index}`, file, (path) =>
+                              updateProject(index, "image", path),
+                            );
                           }
                         }}
                       />
@@ -589,6 +902,10 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
         return renderSkillsPageEditor();
       case "projectsPage":
         return renderProjectsPageEditor();
+      case "projectCategories":
+        return renderProjectCategoriesEditor();
+      case "projectDemos":
+        return renderProjectDemosEditor();
       case "contactPage":
         return renderContactPageEditor();
       case "collections":
@@ -630,15 +947,6 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
           </div>
         </div>
 
-        <div className="adminActions">
-          <button type="button" className="adminSaveButton" onClick={handleSaveAll} disabled={isSaving}>
-            {isSaving ? "Saving..." : "Save Changes"}
-          </button>
-          <button type="button" className="adminLogoutButton" onClick={handleLogout}>
-            Logout
-          </button>
-          <p className="adminStatus">{status}</p>
-        </div>
       </aside>
 
       <section className="adminMain">
@@ -648,6 +956,9 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
             <h1 className="adminTitle">Content Admin</h1>
           </div>
           <div className="adminTopbarMeta">
+            <Link href="/" className="adminViewSiteButton">
+              View Site
+            </Link>
             <div className="adminMetaBadge">Protected</div>
             <div className="adminMetaBadge">Text editor</div>
             <div className="adminMetaBadge">Uploads enabled</div>
@@ -679,6 +990,17 @@ export function AdminEditor({ initialContent }: AdminEditorProps) {
           </section>
 
           <aside className="adminInfoPanel">
+            <div className="adminInfoCard lightPanel">
+              <p className="adminEyebrow">Actions</p>
+              <div className="adminActions adminActionsPanel">
+                <button type="button" className="adminSaveButton" onClick={handleSaveAll} disabled={isSaving}>
+                  {isSaving ? "Saving..." : "Save Changes"}
+                </button>
+                <button type="button" className="adminLogoutButton" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            </div>
             <div className="adminInfoCard lightPanel">
               <p className="adminEyebrow">Current Section</p>
               <h3>{pageTitle}</h3>
