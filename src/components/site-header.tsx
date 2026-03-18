@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { HireModal } from "@/components/hire-modal";
 import type { NavItem } from "@/lib/site-content";
 
 type SiteHeaderProps = {
@@ -25,9 +26,7 @@ export function SiteHeader({ navigation }: SiteHeaderProps) {
           </li>
         ))}
       </ul>
-      <Link href="/contact" className="navCta">
-        Hire Me
-      </Link>
+      <HireModal />
     </nav>
   );
 }
