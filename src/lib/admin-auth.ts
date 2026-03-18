@@ -10,13 +10,6 @@ function getAdminCredentials() {
   };
 }
 
-export function getBasicAuthCredentials() {
-  return {
-    username: process.env.BASIC_AUTH_USERNAME ?? "shield",
-    password: process.env.BASIC_AUTH_PASSWORD ?? "shield123",
-  };
-}
-
 function getSessionSignature(username: string, password: string) {
   return crypto
     .createHash("sha256")
@@ -30,11 +23,6 @@ export function getSessionCookieName() {
 
 export function validateCredentials(username: string, password: string) {
   const expected = getAdminCredentials();
-  return username === expected.username && password === expected.password;
-}
-
-export function validateBasicAuth(username: string, password: string) {
-  const expected = getBasicAuthCredentials();
   return username === expected.username && password === expected.password;
 }
 

@@ -54,7 +54,7 @@ export function AdminLoginForm() {
           <p className="adminLoginLogo">Your logo</p>
           <h1 className="adminLoginHeading">Login</h1>
           <p className="adminLoginText">
-            First pass browser Basic Auth, then sign in with the admin user for this project.
+            Sign in with the admin user configured for this project.
           </p>
 
           <label className="adminLoginField">
